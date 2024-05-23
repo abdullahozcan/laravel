@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use App\Modules\routes;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,16 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            // Modules routes
+            if(count(routes::modules)>0){
+                foreach (routes::modules as $module){
+                    Route::middleware($module['middleware'])
+                        ->prefix($module['prefix'])
+                        ->group(base_path($module['routes']));
+                }
+            }
+
         });
     }
 }

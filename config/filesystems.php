@@ -43,7 +43,11 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
-
+        'modules' => [
+            'driver' => 'local',
+            'root' =>  app_path('modules'),
+            'throw' => false,
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

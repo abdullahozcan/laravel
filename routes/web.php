@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+})->name('dashboard');
+
+
+Auth::routes();
+Route::prefix('/gateway')->group(function (){
+    Route::get('/list/{module}',[\App\Http\Controllers\GatewayController::class,'list'])->name('gateway.list');
 });
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
